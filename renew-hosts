@@ -1,0 +1,24 @@
+#!/bin/bash
+#for linux
+lh=~/res/hosts
+alh=/mnt/c/Windows/System32/drivers/etc/hosts
+alh2=/etc/hosts
+#dt=`date "+%Y%m%d%H%M%S"`
+# remove oldest backup
+#  bkrm=`ls -1t ${lh}* | tail -1`
+#  rm -f ${bkrm}
+cp ~/res/hosts.base $lh
+#echo "## imouto hosts updated at: $dt" >> $lh
+wget -O - https://raw.githubusercontent.com/racaljk/hosts/master/hosts | dos2unix >> $lh
+r=`diff $lh $lh.bk`
+if [ -z "$r" ]
+then
+  echo "No updates."
+else
+  echo "New verson found!"
+  cp $alh $lh.bko
+  cp $alh2 $lh.bko2
+  cp $lh ${lh}.bk
+  cp $lh $alh
+  cp $lh $alh2
+fi
