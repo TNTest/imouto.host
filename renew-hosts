@@ -21,4 +21,5 @@ else
   cp $lh ${lh}.bk
   cp $lh $alh
   cp $lh $alh2
+  echo "Upated."
 fi
